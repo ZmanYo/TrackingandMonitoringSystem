@@ -16,6 +16,19 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## User access demo
+
+On the first visit, create the initial Super Admin account. A Super Admin can create accounts with one of four roles:
+
+- **Basic User** — view, add, and edit content in one assigned mode; no delete or approval actions.
+- **Mode-Admin** — content CRUD and approve/reject actions in one assigned mode.
+- **Admin** — content CRUD across all modes, without user-access management.
+- **Super Admin** — all-mode access, user management, and CSV export.
+
+User records are stored as JSON in the browser's local storage. Passwords are salted and hashed, but all authentication and authorization run in the browser, so this is a demonstration only and must not be used to protect production data or real credentials. Production use requires server-side authentication, authorization, and a trusted database. Clear this site's local storage to restart first-time setup.
+
+Views, lists, and libraries are not implemented as application modules yet; their planned Super Admin access is represented in the role definition only.
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
