@@ -7,6 +7,12 @@ import { canAccessMode, useAuth } from '@/app/auth';
 
 type ModeType = 'FHWA' | 'FRA' | 'FTA' | 'MARAD';
 
+const projectRoundGroups = [
+  { category: 'BUILD Rounds', items: ['B6-2026', 'B5-2-2025', 'B3-2020', 'B2-2019', 'B1-2018'] },
+  { category: 'RAISE Rounds', items: ['R5-1-2025', 'R4-2024', 'R3-2023', 'R2-2022', 'R1-2021'] },
+  { category: 'TIGER Rounds', items: ['T9-2017', 'T8-2016', 'T7-2015', 'T6-2014', 'T5-2013', 'T4-2012', 'T3-2011', 'T2-2010', 'T1-2009'] },
+];
+
 export default function LandingPage() {
   const { currentUser, logout } = useAuth();
   const [selectedMode, setSelectedMode] = useState<ModeType>('FHWA');
@@ -17,29 +23,6 @@ export default function LandingPage() {
     { code: 'FTA', name: 'FTA Projects', desc: 'Federal Transit Administration grant projects' },
     { code: 'MARAD', name: 'MARAD Projects', desc: 'Maritime Administration grant projects' },
   ];
-
-  const roundsData: Record<ModeType, { category: string; items: string[] }[]> = {
-    FHWA: [
-      { category: 'BUILD Rounds', items: ['B6-2026', 'B5-2-2025', 'B3-2020', 'B2-2019', 'B1-2018'] },
-      { category: 'RAISE Rounds', items: ['R5-1-2025', 'R4-2024', 'R3-2023', 'R2-2022', 'R1-2021'] },
-      { category: 'TIGER Rounds', items: ['T9-2017', 'T8-2016', 'T7-2015', 'T6-2014', 'T5-2013', 'T4-2012', 'T3-2011', 'T2-2010', 'T1-2009'] },
-    ],
-    FRA: [
-      { category: 'BUILD Rounds', items: ['B6-2026', 'B5-2-2025', 'B3-2020', 'B2-2019'] },
-      { category: 'RAISE Rounds', items: ['R5-1-2025', 'R4-2024', 'R3-2023', 'R2-2022'] },
-      { category: 'TIGER Rounds', items: ['T9-2017', 'T8-2016', 'T7-2015', 'T6-2014'] },
-    ],
-    FTA: [
-      { category: 'BUILD Rounds', items: ['B6-2026', 'B5-2-2025', 'B3-2020', 'B2-2019'] },
-      { category: 'RAISE Rounds', items: ['R5-1-2025', 'R4-2024', 'R3-2023', 'R2-2022'] },
-      { category: 'TIGER Rounds', items: ['T9-2017', 'T8-2016', 'T7-2015', 'T6-2014'] },
-    ],
-    MARAD: [
-      { category: 'BUILD Rounds', items: ['B6-2026', 'B5-2-2025', 'B3-2020'] },
-      { category: 'RAISE Rounds', items: ['R5-1-2025', 'R4-2024', 'R3-2023'] },
-      { category: 'TIGER Rounds', items: ['T9-2017', 'T8-2016', 'T7-2015'] },
-    ],
-  };
 
   const accessibleModes = modes.filter((mode) => canAccessMode(currentUser, mode.code));
   const activeMode = accessibleModes.some((mode) => mode.code === selectedMode)
@@ -131,7 +114,7 @@ export default function LandingPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {roundsData[activeMode].map((group) => (
+            {projectRoundGroups.map((group) => (
               <div key={group.category} className="border border-gray-200 rounded-lg p-4 bg-gray-50/50">
                 <div className="bg-[#d0e1fd] text-[#003a8c] font-bold text-center py-2.5 rounded mb-4">
                   {group.category}
